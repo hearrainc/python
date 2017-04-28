@@ -19,6 +19,7 @@ def py_list(ftp,path="/"):
    for line in data:
        print "-",line
 
+
 if __name__ == '__main__':
     if len(argv) >= 2:
         ftp = py_login(argv[1])
