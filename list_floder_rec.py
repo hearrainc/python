@@ -1,7 +1,32 @@
 # -*- coding:utf8 -*-   
   
-import os   
-allFileNum = 0  
+import os
+import platform
+
+LINUX = 0
+WINDOWS = 1
+
+PATH_SEP = '/'
+
+def PlatformType():
+    sysstr = platform.system()
+    if(sysstr =="Linux"):
+        print ("Linux")
+        return LINUX
+    elif(sysstr == "Windows"):
+        print ("Windows")
+        return WINDOWS
+    else:
+        print ("Other System")
+
+def SetPathSep():
+    global PATH_SEP
+    sys_type = PlatformType()
+    if(WINDOWS == sys_type):
+        PATH_SEP = '\\'
+
+allFileNum = 0
+
 def printPath(level, path):   
     global allFileNum
     
@@ -17,14 +42,14 @@ def printPath(level, path):
     # 先添加目录级别   
     dirList.append(str(level))   
     for f in files:   
-        if(os.path.isdir(path + '\\' + f)):   
+        if(os.path.isdir(path + PATH_SEP + f)):   
             # 排除隐藏文件夹。因为隐藏文件夹过多   
             if(f[0] == '.'):   
                 pass  
             else:   
                 # 添加非隐藏文件夹   
                 dirList.append(f)   
-        if(os.path.isfile(path + '\\' + f)):   
+        if(os.path.isfile(path + PATH_SEP + f)):   
             # 添加文件   
             fileList.append(f)   
     # 当一个标志使用，文件夹列表第一个级别不打印   
@@ -38,13 +63,13 @@ def printPath(level, path):
             ##print '-' * (int(dirList[0])), dl
             
             # 打印目录下的所有文件夹和文件，目录级别+1   
-            printPath((int(dirList[0]) + 1), path + '\\' + dl)   
+            printPath((int(dirList[0]) + 1), path + PATH_SEP + dl)   
     for fl in fileList:   
         # 打印文件
         
         ##print '-' * (int(dirList[0])), fl
         
-        filepath = path + '\\'
+        filepath = path + PATH_SEP
         filepath = filepath + fl
         print filepath
         
