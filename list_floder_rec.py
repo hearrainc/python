@@ -32,7 +32,9 @@ def printPath(level, path):
     
     '''''  
     打印一个目录下的所有文件夹和文件  
-    '''  
+    ''' 
+    
+    SetPathSep()
     # 所有文件夹，第一个字段是次目录的级别   
     dirList = []   
     # 所有文件   
