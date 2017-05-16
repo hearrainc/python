@@ -2,6 +2,7 @@
   
 import os
 import platform
+import pdb
 
 LINUX = 0
 WINDOWS = 1
@@ -10,11 +11,9 @@ PATH_SEP = '/'
 
 def PlatformType():
     sysstr = platform.system()
-    if(sysstr =="Linux"):
-        print ("Linux")
+    if(sysstr =="Linux"):        
         return LINUX
     elif(sysstr == "Windows"):
-        print ("Windows")
         return WINDOWS
     else:
         print ("Other System")
@@ -33,8 +32,8 @@ def printPath(level, path):
     '''''  
     打印一个目录下的所有文件夹和文件  
     ''' 
+    #pdb.set_trace()
     
-    SetPathSep()
     # 所有文件夹，第一个字段是次目录的级别   
     dirList = []   
     # 所有文件   
@@ -64,20 +63,24 @@ def printPath(level, path):
             
             ##print '-' * (int(dirList[0])), dl
             
-            # 打印目录下的所有文件夹和文件，目录级别+1   
-            printPath((int(dirList[0]) + 1), path + PATH_SEP + dl)   
+            # 打印目录下的所有文件夹和文件，目录级别+1
+            print '+' * (int(dirList[0])), dl            
+            printPath((int(dirList[0]) + 1), path + PATH_SEP + dl)
+    
     for fl in fileList:   
         # 打印文件
         
-        ##print '-' * (int(dirList[0])), fl
-        
+        print '+' * (int(dirList[0])), fl
+        '''
         filepath = path + PATH_SEP
         filepath = filepath + fl
         print filepath
-        
+        '''
         # 随便计算一下有多少个文件   
         allFileNum = allFileNum + 1  
   
 if __name__ == '__main__':
-    printPath(1, os.getcwd())   
-    print 'ALL File Nums =', allFileNum  
+    path = raw_input("Enter target path:")
+    SetPathSep()
+    printPath(1, path)   
+    print 'all file nums =', allFileNum  
