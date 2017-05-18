@@ -5,19 +5,30 @@ import sys
 import ftplib
 from sys import argv
 
-def py_login(host,user="test",pwd="test"):
-    "ftp login"
-    py_ftp = ftplib.FTP(host)
-    py_ftp.login(user,pwd)
-    return py_ftp
+from ftp_login import py_login
 
 def py_list(ftp,path="/"):
+   """
+   LIST(list file info in path)
+   eg:python ftp_list.py host /uspp
+   """
    ftp.cwd(path)
    data = []
    ftp.dir(data.append)
 
    for line in data:
-       print "-",line
+       print line
+       
+def py_nlist(ftp,path="/"):
+   """
+   NLST(list file name in path)
+   eg:python ftp_list.py 10.43.214.226 /uspp
+   """
+   ftp.cwd(path)
+   file_list = ftp.nlst()
+
+   for line in file_list:
+       print line
 
 if __name__ == '__main__':
     if len(argv) >= 2:

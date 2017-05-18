@@ -6,11 +6,15 @@ import ftplib
 from sys import argv
 
 def py_login(host,user="test",pwd="test"):
-    "ftp login"
-    py_ftp = ftplib.FTP(host)
-    py_ftp.login(user,pwd)
-    return py_ftp
-    
+    "ftp_login.py host_ip usr(dft:test) pwd(dft:test)"
+    try:
+       py_ftp = ftplib.FTP(host)
+       py_ftp.login(user,pwd)
+       return py_ftp
+    except socket.error,socket.gaierror:  
+       print("FTP is unavailable,please check the host,username and password!")  
+       sys.exit(0)
+       
 if __name__ == '__main__':
     if len(argv) >= 2:
         ftp = py_login(argv[1])
