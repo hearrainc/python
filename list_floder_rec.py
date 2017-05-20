@@ -32,7 +32,7 @@ def printPath(level, path):
     '''''  
     打印一个目录下的所有文件夹和文件  
     ''' 
-    #pdb.set_trace()
+    #pdb.set_trace()  #debug
     
     # 所有文件夹，第一个字段是次目录的级别   
     dirList = []   
@@ -43,14 +43,14 @@ def printPath(level, path):
     # 先添加目录级别   
     dirList.append(str(level))   
     for f in files:   
-        if(os.path.isdir(path + PATH_SEP + f)):   
+        if(os.path.isdir(path + os.sep + f)):   
             # 排除隐藏文件夹。因为隐藏文件夹过多   
             if(f[0] == '.'):   
                 pass  
             else:   
                 # 添加非隐藏文件夹   
                 dirList.append(f)   
-        if(os.path.isfile(path + PATH_SEP + f)):   
+        if(os.path.isfile(path + os.sep + f)):   
             # 添加文件   
             fileList.append(f)   
     # 当一个标志使用，文件夹列表第一个级别不打印   
@@ -65,14 +65,14 @@ def printPath(level, path):
             
             # 打印目录下的所有文件夹和文件，目录级别+1
             print '+' * (int(dirList[0])), dl            
-            printPath((int(dirList[0]) + 1), path + PATH_SEP + dl)
+            printPath((int(dirList[0]) + 1), path + os.sep + dl)
     
     for fl in fileList:   
         # 打印文件
         
         print '+' * (int(dirList[0])), fl
         '''
-        filepath = path + PATH_SEP
+        filepath = path + os.sep
         filepath = filepath + fl
         print filepath
         '''
@@ -81,6 +81,6 @@ def printPath(level, path):
   
 if __name__ == '__main__':
     path = raw_input("Enter target path:")
-    SetPathSep()
+    SetPathSep() #os.sep
     printPath(1, path)   
     print 'all file nums =', allFileNum  
