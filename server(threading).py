@@ -40,15 +40,14 @@ class ClientThread(threading.Thread):
 
         self.tcpClient = tcpClient
         self.addr = addr
-        self.timeout = 10
+        self.timeout = 60
         tcpClient.settimeout(self.timeout)
-
-        self.cf = tcpClient.makefile('rw',0)
           
     def run(self):
         while 1:
             try:
-                data = self.cf.readline().strip()
+                
+                data=self.tcpClient.recv(1024)
                 if data:
                     if data.find("set time")>=0:
                         self.timeout = int(data.replace("set time ",""))
@@ -57,20 +56,18 @@ class ClientThread(threading.Thread):
                         print self.addr," quit"
                         break
                     print self.addr,"client say:",data
-                    self.cf.write(str(self.addr)+" recevied ok!"+"\n")
+                    #self.cf.write(str(self.addr)+" recevied ok!"+"\n")
+                    self.tcpClient.send(str(self.addr)+" recevied ok!")
                 else:
                     break
             except Exception,e:
-                self.cf.write("time out."+"\n")
-                print self.addr,"send message error,",str(e)
-                self.tcpClient.shutdown(2)
+                #self.tcpClient.send('time out.')
+                print self.addr,str(e)
                 self.tcpClient.close()
-                #注释break
-                #break
-        '''
-        self.tcpClient.shutdown(2)
+                break
+
         self.tcpClient.close()
-        '''
+        print '%s over' % self.getName()
 if __name__ == "__main__" :  
     ser = Server()
     ser.main()
