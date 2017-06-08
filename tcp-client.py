@@ -1,6 +1,7 @@
 ﻿#!/usr/bin/python
 #-*- coding: utf-8 -*-
 from socket import *
+import struct
 
 class TcpClient:
     #测试，连接本机
@@ -12,6 +13,10 @@ class TcpClient:
     def __init__(self):
         self.client=socket(AF_INET, SOCK_STREAM)
         self.client.connect(self.ADDR)
+        
+        '''close时，立即关闭底层socket,避免出现主动关闭一方出现TIME_WAIT状态'''
+        #optval = struct.pack("ii",1,0)
+        #self.client.setsockopt(SOL_SOCKET, SO_LINGER, optval)
 
         while True:
             try:

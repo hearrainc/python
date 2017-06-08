@@ -14,10 +14,6 @@ ADDR=(HOST, PORT)
 
 sock=socket(AF_INET, SOCK_STREAM)
 
-'''close时，立即关闭底层socket'''
-#optval = struct.pack("ii",1,0)
-#sock.setsockopt(SOL_SOCKET, SO_LINGER, optval)
-
 sock.bind(ADDR)
 
 sock.listen(5)
@@ -28,18 +24,22 @@ while not STOP_CHAT:
     print('等待接入，侦听端口:%d' % (PORT))
     try:
         tcpClientSock, addr=sock.accept()
+        '''close时，立即关闭底层socket'''
+        #optval = struct.pack("ii",1,0)
+        #tcpClientSock.setsockopt(SOL_SOCKET, SO_LINGER, optval)
         print '接受连接，客户端地址:',addr
         while True:
             try:
                 data=tcpClientSock.recv(BUFSIZ)
-            except:
-                #print(e)
+            except :
+                print 'error'
                 tcpClientSock.close()
                 break
             if not data:
+                print 'data empty'
+                #tcpClientSock.close()
                 break
-            #python3使用bytes，所以要进行编码
-            #s='%s发送给我的信息是:[%s] %s' %(addr[0],ctime(), data.decode('utf8'))
+            
             #对日期进行一下格式化
             ISOTIMEFORMAT='%Y-%m-%d %X'
             stime=time.strftime(ISOTIMEFORMAT, localtime())
@@ -50,9 +50,11 @@ while not STOP_CHAT:
             STOP_CHAT=(data.upper()=="QUIT")
             if STOP_CHAT:
                 break
+        
     except KeyboardInterrupt,e:
         print 'Ctrl+C'
         break
 if tcpClientSock is not None:
+    print 'close client'
     tcpClientSock.close()
 sock.close()
