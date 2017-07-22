@@ -5,4 +5,5 @@
 * base-content                    基础知识
 * file-sys                        文件系统
 * ftp                 ftp相关功能
-* socket            socket
+* socket            socket
+* thread/threading            线程
