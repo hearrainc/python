@@ -1,9 +1,13 @@
-## python代码实现相关功能
+## python操作excel
 
-### branch
+### 依赖库
+1. xlrd     excel读
+2. xlwt     excel写
+3. xlutils  excel混合
 
-* base-content                    基础知识
-* file-sys                        文件系统
-* ftp                 ftp相关功能
-* socket            socket
-* thread/threading            线程
+### 限制
+1. 仅支持office2003(.xls)文件
+
+### 文件说明
+1)perf_rslt 数据输入txt文件
+2)op_exist_excel.py 将txt数据插入已经存在的excel文件 
