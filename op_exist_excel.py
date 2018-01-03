@@ -6,11 +6,9 @@ import os
 import sys
 from xlutils.copy import copy
 from itertools import islice
-from scan_testcase import dict2List
-from scan_testcase import scan_tcst_path
 
 row = 2
-col = 0
+col = 1
 
 #从txt文件中读取数据
 def loadData(flieName):  
@@ -78,20 +76,20 @@ def write_one_txt(ws, title, api, elaspe_t, dur_t, percall_t):
     row = row+len(api)
 
 def getFileList(path):
+
     if (path == ""):
-        #path = os.getcwd() + '\\txt\\'
-        path = os.path.split( os.path.realpath( sys.argv[0] ) )[0]  + '\\txt\\'
+        path = os.path.split( os.path.realpath( sys.argv[0] ) )[0]  + '\\perf_rslt\\'
     fileList = []
     files = os.listdir(path)
     
     for f in files:
         if(os.path.isfile(path + '\\' + f) and (os.path.splitext(f)[1] == ".txt")):       
       
-            fileList.append(path + '\\' + f)
+            fileList.append(f)
             print f
     return fileList
 
-xls_name = 'pt-model.xls'
+xls_name = 'model.xls'
 
 def txt2xls(ws,txt_name):
     # get txt path(defaul:py_path\perf_rslt\)
@@ -101,11 +99,28 @@ def txt2xls(ws,txt_name):
     (title,api,elaspe_t,dur_t,percall_t) = loadData(txt_path)
     # write data
     write_one_txt(ws, title[0], api, elaspe_t, dur_t, percall_t)
+    
+def txts_2_xls():
+    
+    #get txts names
+    txt_files = getFileList("")
+    
+    # open xls
+    old = xlrd.open_workbook(xls_name, formatting_info=True)
+    wb = copy(old)
+    ws = wb.get_sheet(0)
+    
+    for item in txt_files:
+        txt2xls(ws,item)
+    # save xls
+    wb.save(xls_name)
 
+'''
 def xls_write(ws,content,content_type):
     global row
     ws.write(row, col, content, content_type)
     row = row + 1
+
 
 def pt_rslt_to_xls(test_case_file_path):
     global row
@@ -136,13 +151,13 @@ def pt_rslt_to_xls(test_case_file_path):
 
     # save xls
     wb.save(xls_name)
-    
+'''   
 def main():
-    pt_test_file = raw_input('请输入cache_pt.tcst路径(D:\\xx\\cache_pt.tcst)：')
-    pt_test_file = unicode(pt_test_file, "gbk")
-
-    pt_rslt_to_xls(pt_test_file)
-
+    #pt_test_file = raw_input('请输入cache_pt.tcst路径(D:\\xx\\cache_pt.tcst)：')
+    #pt_test_file = unicode(pt_test_file, "gbk")
+    #pt_rslt_to_xls(pt_test_file)
+    
+    txts_2_xls()
 
 if __name__ == '__main__':
     main()
