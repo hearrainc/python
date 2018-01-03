@@ -1,0 +1,7 @@
+Name,API,Result,BeginTime,EndTime,ElapseTime,Duration,ElapsePerCall
+single_insert_table,cache_connect_db_by_index,0,2017-12-28 8:45:22:592419,2017-12-28 8:45:22:593031,612,612,612000
+single_insert_table,cache_append_tuple_cache_only,0,2017-12-28 8:45:22:604108,2017-12-28 8:45:22:991852,387744,387744,387
+single_insert_table,cache_set_column_value_cache_only,0,2017-12-28 8:45:24:975068,2017-12-28 8:45:25:225701,250633,250633,250
+single_insert_table,cache_set_column_value_cache_only,0,2017-12-28 8:45:26:174895,2017-12-28 8:45:26:425198,250303,250303,250
+single_insert_table,cache_set_column_value_cache_only,0,2017-12-28 8:45:27:375057,2017-12-28 8:45:27:626056,250999,250999,250
+single_insert_table,cache_set_column_value_cache_only,0,2017-12-28 8:45:28:575470,2017-12-28 8:45:28:825587,250117,250117,250
