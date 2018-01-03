@@ -9,5 +9,5 @@
 1. 仅支持office2003(.xls)文件
 
 ### 文件说明
-1)perf_rslt 数据输入txt文件
-2)op_exist_excel.py 将txt数据插入已经存在的excel文件 
+1. perf_rslt 数据输入txt文件
+2. op_exist_excel.py 将txt数据插入已经存在的excel文件 
